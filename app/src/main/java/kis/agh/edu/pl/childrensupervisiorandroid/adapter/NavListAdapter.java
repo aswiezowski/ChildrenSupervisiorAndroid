@@ -4,9 +4,8 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.widget.AdapterView;
-
-        import android.content.Context;
-        import android.view.View;
+import android.content.Context;
+import android.view.View;
 
 import kis.agh.edu.pl.childrensupervisiorandroid.MainActivity;
 import kis.agh.edu.pl.childrensupervisiorandroid.R;

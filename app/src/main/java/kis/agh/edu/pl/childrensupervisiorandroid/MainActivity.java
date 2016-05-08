@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         if(savedInstanceState == null) {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.add(R.id.fragment_container, );
+            transaction.add(R.id.fragment_container, TasksFragment.newInstance());
             transaction.commit();
         }
     }
