@@ -8,5 +8,5 @@
         android:layout_height="wrap_content"
         android:text="Sample text"
         android:id="@+id/taskSummary"
-        android:textSize="24sp" />
+        android:textSize="48sp" />
 </LinearLayout>
