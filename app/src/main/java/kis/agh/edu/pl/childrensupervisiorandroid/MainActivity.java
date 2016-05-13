@@ -8,6 +8,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -33,10 +34,13 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         addDrawerItems();
         navList.setOnItemClickListener(new NavListAdapter(this));
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
 
         // set drawer toogle
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
         mActivityTitle = getTitle().toString();
         setupDrawer();
         if(savedInstanceState == null) {
@@ -99,5 +103,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void setActivityTitle(String title) {
         this.mActivityTitle = title;
+    }
+
+    @Override
+    public void onBackPressed() {
+        FragmentManager fragmentManager = getFragmentManager();
+        if(fragmentManager.getBackStackEntryCount() != 0) {
+            fragmentManager.popBackStack();
+        } else {
+            super.onBackPressed();
+        }
     }
 }

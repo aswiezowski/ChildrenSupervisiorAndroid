@@ -9,6 +9,7 @@ import android.view.View;
 
 import kis.agh.edu.pl.childrensupervisiorandroid.MainActivity;
 import kis.agh.edu.pl.childrensupervisiorandroid.R;
+import kis.agh.edu.pl.childrensupervisiorandroid.TasksFragment;
 
 public class NavListAdapter implements AdapterView.OnItemClickListener {
 
@@ -21,15 +22,16 @@ public class NavListAdapter implements AdapterView.OnItemClickListener {
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Fragment fragment = null;
-        if(position==0){
 
-        } else if(position == 1){
-
-        }
         FragmentManager fragmentManager = ((MainActivity) context).getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.fragment_container, fragment);
-        transaction.addToBackStack(null);
+
+        if (position == 0) {
+            fragmentManager.popBackStack(0, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        } else if (position == 1) {
+            transaction.replace(R.id.fragment_container, TasksFragment.newInstance());
+            transaction.addToBackStack("tets");
+        }
         transaction.commit();
     }
 }

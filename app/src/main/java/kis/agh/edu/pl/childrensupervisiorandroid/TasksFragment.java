@@ -34,7 +34,6 @@ public class TasksFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ((MainActivity)getActivity()).setActivityTitle(getResources().getString(R.string.tasks));
         View view = inflater.inflate(R.layout.tasks_layout, container, false);
         tasksView=(ListView) view;
         mAdapter = new ArrayAdapter(this.getActivity(), R.layout.task_item_layout,R.id.taskSummary);
