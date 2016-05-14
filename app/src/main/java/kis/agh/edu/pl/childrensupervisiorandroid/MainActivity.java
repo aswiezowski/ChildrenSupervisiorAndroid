@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         addDrawerItems();
-        navList.setOnItemClickListener(new NavListAdapter(this));
+        navList.setOnItemClickListener(new NavListAdapter(this, mDrawerLayout));
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 

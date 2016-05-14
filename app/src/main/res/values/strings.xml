@@ -11,5 +11,8 @@
         <item>Do a homework</item>
     </string-array>
     <string name="title_activity_task">TaskActivity</string>
+    <string name="pref_alarm_sequence">Alarm Sequence</string>
+    <string name="pref_alarm_sequence_summary">Key sequence to generate alarm</string>
+    <string name="pref_alarm_sequence_default">#0000#</string>
 
 </resources>
