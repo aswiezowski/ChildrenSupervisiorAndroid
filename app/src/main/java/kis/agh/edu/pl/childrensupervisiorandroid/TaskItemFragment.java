@@ -21,4 +21,10 @@ public class TaskItemFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Task summary");
+    }
+
 }

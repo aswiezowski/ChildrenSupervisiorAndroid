@@ -27,6 +27,7 @@ public class TasksFragment extends Fragment {
     ArrayAdapter mAdapter;
 
     private ListView tasksView;
+
     public static TasksFragment newInstance() {
         TasksFragment fragment = new TasksFragment();
         return fragment;
@@ -35,8 +36,8 @@ public class TasksFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tasks_layout, container, false);
-        tasksView=(ListView) view;
-        mAdapter = new ArrayAdapter(this.getActivity(), R.layout.task_item_layout,R.id.taskSummary);
+        tasksView = (ListView) view;
+        mAdapter = new ArrayAdapter(this.getActivity(), R.layout.task_item_layout, R.id.taskSummary);
         mAdapter.addAll(this.getResources().getStringArray(R.array.sample_tasks));
         tasksView.setAdapter(mAdapter);
 
@@ -55,6 +56,12 @@ public class TasksFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle(getResources().getString(R.string.tasks));
     }
 
 }

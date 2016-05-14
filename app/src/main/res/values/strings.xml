@@ -14,5 +14,7 @@
     <string name="pref_alarm_sequence">Alarm Sequence</string>
     <string name="pref_alarm_sequence_summary">Key sequence to generate alarm</string>
     <string name="pref_alarm_sequence_default">#0000#</string>
+    <string name="done">Done</string>
+    <string name="add_photo">Add photo</string>
 
 </resources>

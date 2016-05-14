@@ -26,24 +26,61 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ocena: "
-        android:id="@+id/ratingLabel"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_below="@+id/taskDescription"
-        android:layout_toLeftOf="@+id/rating"
-        android:layout_toStartOf="@+id/rating" />
     <RatingBar
         android:id="@+id/rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="?android:attr/ratingBarStyleSmall"
+        style="?android:attr/ratingBarStyle"
         android:numStars="5"
         android:stepSize="1"
         android:isIndicator="true"
+        android:layout_below="@+id/galleryScrollView"
+        android:layout_centerHorizontal="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/done"
+        android:id="@+id/done"
+        style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+        android:textSize="32sp"
         android:layout_below="@+id/taskDescription"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:paddingRight="18dp" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/galleryScrollView"
+        android:layout_below="@+id/addPhoto"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/galleryLinearLayout"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+       </HorizontalScrollView>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_photo"
+        android:id="@+id/addPhoto"
+        android:layout_below="@+id/taskDescription"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/comments"
+        android:layout_below="@+id/rating"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>
