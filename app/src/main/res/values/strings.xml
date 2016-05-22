@@ -5,6 +5,9 @@
     <string name="navigation_title">Navigation</string>
     <string name="settings">Settings</string>
     <string name="tasks">Tasks</string>
+    <string name="tasks_done">Done</string>
+    <string name="tasks_todo">Todo</string>
+    <string name="rewards">Rewards</string>
     <string-array name="sample_tasks">
         <item>Clean a room</item>
         <item>Wash the dishes</item>

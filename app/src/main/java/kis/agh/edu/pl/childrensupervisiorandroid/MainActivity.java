@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addDrawerItems() {
-        String[] menuArray = { getResources().getString(R.string.tasks), getResources().getString(R.string.settings)};
+        String[] menuArray = { getResources().getString(R.string.tasks_todo),getResources().getString(R.string.tasks_done), getResources().getString(R.string.rewards), getResources().getString(R.string.settings)};
         navAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, menuArray);
         navList.setAdapter(navAdapter);
     }

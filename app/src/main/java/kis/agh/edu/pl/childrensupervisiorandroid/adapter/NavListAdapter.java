@@ -13,6 +13,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import kis.agh.edu.pl.childrensupervisiorandroid.MainActivity;
 import kis.agh.edu.pl.childrensupervisiorandroid.R;
+import kis.agh.edu.pl.childrensupervisiorandroid.RewardsFragment;
 import kis.agh.edu.pl.childrensupervisiorandroid.SettingsFragment;
 import kis.agh.edu.pl.childrensupervisiorandroid.TasksFragment;
 
@@ -34,9 +35,12 @@ public class NavListAdapter implements AdapterView.OnItemClickListener {
         FragmentManager fragmentManager = ((MainActivity) context).getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        if (position == 0) {
+        if (position == 0 || position == 1) {
             fragmentManager.popBackStack(0, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        } else if (position == 1) {
+        } else if (position == 2) {
+            transaction.replace(R.id.fragment_container, RewardsFragment.getInstance());
+            transaction.addToBackStack("Rewards");
+        } else if (position == 3) {
             transaction.replace(R.id.fragment_container, SettingsFragment.getInstance());
             transaction.addToBackStack("Settings");
         }
