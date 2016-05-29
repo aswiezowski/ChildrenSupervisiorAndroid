@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-        // set drawer toogle
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addDrawerItems() {
-        String[] menuArray = { getResources().getString(R.string.tasks_todo),getResources().getString(R.string.tasks_done), getResources().getString(R.string.rewards), getResources().getString(R.string.settings)};
+        String[] menuArray = { getResources().getString(R.string.tasks_todo),getResources().getString(R.string.tasks_done), getResources().getString(R.string.rewards), getResources().getString(R.string.calendar), getResources().getString(R.string.settings)};
         navAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, menuArray);
         navList.setAdapter(navAdapter);
     }

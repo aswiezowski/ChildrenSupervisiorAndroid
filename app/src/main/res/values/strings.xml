@@ -8,6 +8,7 @@
     <string name="tasks_done">Done</string>
     <string name="tasks_todo">Todo</string>
     <string name="rewards">Rewards</string>
+    <string name="calendar">Calendar</string>
     <string-array name="sample_tasks">
         <item>Clean a room</item>
         <item>Wash the dishes</item>

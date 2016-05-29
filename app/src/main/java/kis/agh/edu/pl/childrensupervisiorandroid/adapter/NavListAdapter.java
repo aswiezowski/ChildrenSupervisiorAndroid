@@ -11,6 +11,7 @@ import android.view.View;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import kis.agh.edu.pl.childrensupervisiorandroid.CalendarFragment;
 import kis.agh.edu.pl.childrensupervisiorandroid.MainActivity;
 import kis.agh.edu.pl.childrensupervisiorandroid.R;
 import kis.agh.edu.pl.childrensupervisiorandroid.RewardsFragment;
@@ -41,6 +42,9 @@ public class NavListAdapter implements AdapterView.OnItemClickListener {
             transaction.replace(R.id.fragment_container, RewardsFragment.getInstance());
             transaction.addToBackStack("Rewards");
         } else if (position == 3) {
+            transaction.replace(R.id.fragment_container, CalendarFragment.getInstance());
+            transaction.addToBackStack("Calendar");
+        } else if (position == 4) {
             transaction.replace(R.id.fragment_container, SettingsFragment.getInstance());
             transaction.addToBackStack("Settings");
         }
