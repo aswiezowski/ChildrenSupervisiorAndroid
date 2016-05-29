@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.util.TypedValue;
@@ -18,6 +19,9 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import java.io.ByteArrayOutputStream;
+
+import kis.agh.edu.pl.childrensupervisiorandroid.database.Photo;
 import kis.agh.edu.pl.childrensupervisiorandroid.database.Task;
 import kis.agh.edu.pl.childrensupervisiorandroid.database.TaskDAO;
 
@@ -68,6 +72,8 @@ public class TaskItemFragment extends Fragment {
             checkButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorUndone)));
         }
 
+        loadPhotoFromDatabase();
+
     }
 
     @Override
@@ -99,21 +105,41 @@ public class TaskItemFragment extends Fragment {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && data.getExtras() != null) {
-            ImageView imageView = new ImageView(getActivity());
             Bitmap photo = (Bitmap) data.getExtras().get("data");
 
-            imageView.setImageBitmap(photo);
+            addPhotoToView(photo);
+            savePhotoToDatabase(photo);
+        }
+    }
 
-            int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 256, getResources().getDisplayMetrics());
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
-            layoutParams.setMargins(5, 0, 5, 0);
+    private void addPhotoToView(Bitmap photo){
+        int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 256, getResources().getDisplayMetrics());
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
+        layoutParams.setMargins(5, 0, 5, 0);
 
-            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            imageView.setAdjustViewBounds(true);
-            imageView.setLayoutParams(layoutParams);
+        ImageView imageView = new ImageView(getActivity());
+        imageView.setImageBitmap(photo);
+        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        imageView.setAdjustViewBounds(true);
+        imageView.setLayoutParams(layoutParams);
 
-            galleryLinearLayout.addView(imageView);
+        galleryLinearLayout.addView(imageView);
+    }
 
+    private void savePhotoToDatabase(Bitmap photo){
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
+
+        Photo taskPhoto = new Photo();
+        taskPhoto.task = task;
+        taskPhoto.photo = stream.toByteArray();
+        taskPhoto.save();
+    }
+
+    private void loadPhotoFromDatabase(){
+        for(Photo photo:task.photos()){
+            Bitmap bitmap = BitmapFactory.decodeByteArray(photo.photo, 0, photo.photo.length);
+            addPhotoToView(bitmap);
         }
     }
 

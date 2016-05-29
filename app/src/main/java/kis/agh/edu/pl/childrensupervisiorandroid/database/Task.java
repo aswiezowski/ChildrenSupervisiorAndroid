@@ -5,11 +5,12 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
 import java.util.Date;
+import java.util.List;
 
 @Table(name = "Tasks", id = "_id")
 public class Task extends Model {
 
-    @Column(name = "id")
+    @Column(name = "task_id")
     public Integer id;
 
     @Column(name = "child_id")
@@ -36,6 +37,11 @@ public class Task extends Model {
     @Column(name = "updated_at")
     public Date updated_at;
 
+    public List<Photo> photos() {
+        return getMany(Photo.class, "task_id");
+    }
+
+
     public boolean isDone(){
         return !status;
     }
@@ -47,7 +53,6 @@ public class Task extends Model {
         if (!super.equals(o)) return false;
 
         Task task = (Task) o;
-
         return id.equals(task.id);
     }
 
