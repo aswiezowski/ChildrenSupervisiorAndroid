@@ -20,6 +20,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Date;
 
 import kis.agh.edu.pl.childrensupervisiorandroid.database.Photo;
 import kis.agh.edu.pl.childrensupervisiorandroid.database.Task;
@@ -33,6 +34,7 @@ public class TaskItemFragment extends Fragment {
     private LinearLayout galleryLinearLayout;
 
     private static final int CAMERA_REQUEST = 1888;
+    private FloatingActionButton checkButton;
 
     public static TaskItemFragment newInstance() {
         TaskItemFragment fragment = new TaskItemFragment();
@@ -46,40 +48,60 @@ public class TaskItemFragment extends Fragment {
 
         retrieveTask();
         prepareView(view);
-        mainActivity=((MainActivity) getActivity());
+        mainActivity = ((MainActivity) getActivity());
         setHasOptionsMenu(true);
         return view;
     }
 
-    private void retrieveTask(){
+    private void retrieveTask() {
         Long taskId = this.getArguments().getLong("task_id");
         task = taskDAO.getTaskById(taskId);
     }
 
-    private void prepareView(View view){
+    private void prepareView(View view) {
         TextView taskDescription = (TextView) view.findViewById(R.id.taskDescription);
         RatingBar rating = (RatingBar) view.findViewById(R.id.rating);
-        FloatingActionButton checkButton = (FloatingActionButton) view.findViewById(R.id.checkButton);
+        checkButton = (FloatingActionButton) view.findViewById(R.id.checkButton);
         galleryLinearLayout = (LinearLayout) view.findViewById(R.id.galleryLinearLayout);
 
         taskDescription.setText(task.description);
-        if(task.mark!=null) {
+        if (task.mark != null) {
             rating.setRating(task.mark.floatValue());
         }
 
-        if(!task.isDone()){
-            checkButton.setImageResource(R.drawable.ic_clear);
-            checkButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorUndone)));
-        }
+        setupCheckButton();
+
+        checkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (task.status == true) {
+                    task.status = false;
+                } else if (task.status == false) {
+                    task.status = true;
+                }
+                task.updated_at=new Date();
+                task.save();
+                setupCheckButton();
+            }
+        });
 
         loadPhotoFromDatabase();
+    }
 
+    private void setupCheckButton(){
+        if (!task.isDone()) {
+            checkButton.setImageResource(R.drawable.ic_clear);
+            checkButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorUndone)));
+        }else{
+            checkButton.setImageResource(R.drawable.ic_done);
+            checkButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorDone)));
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if(task == null){
+        if (task == null) {
             retrieveTask();
         }
         mainActivity.getSupportActionBar().setTitle(task.summary);
@@ -104,7 +126,7 @@ public class TaskItemFragment extends Fragment {
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CAMERA_REQUEST && data!= null && data.getExtras() != null) {
+        if (requestCode == CAMERA_REQUEST && data != null && data.getExtras() != null) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
 
             addPhotoToView(photo);
@@ -112,7 +134,7 @@ public class TaskItemFragment extends Fragment {
         }
     }
 
-    private void addPhotoToView(Bitmap photo){
+    private void addPhotoToView(Bitmap photo) {
         int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 256, getResources().getDisplayMetrics());
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
         layoutParams.setMargins(5, 0, 5, 0);
@@ -126,7 +148,7 @@ public class TaskItemFragment extends Fragment {
         galleryLinearLayout.addView(imageView);
     }
 
-    private void savePhotoToDatabase(Bitmap photo){
+    private void savePhotoToDatabase(Bitmap photo) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
 
@@ -136,8 +158,8 @@ public class TaskItemFragment extends Fragment {
         taskPhoto.save();
     }
 
-    private void loadPhotoFromDatabase(){
-        for(Photo photo:task.photos()){
+    private void loadPhotoFromDatabase() {
+        for (Photo photo : task.photos()) {
             Bitmap bitmap = BitmapFactory.decodeByteArray(photo.photo, 0, photo.photo.length);
             addPhotoToView(bitmap);
         }
