@@ -9,16 +9,22 @@ public class TaskDAO {
     public List<Task> getTodoTasks(){
         return new Select()
                 .from(Task.class)
-                .where("status = ?", "todo")
-                .orderBy("date")
+                .where("status = ?", false)
+                .orderBy("updated_at")
                 .execute();
     }
 
     public List<Task> getDoneTasks(){
         return new Select()
                 .from(Task.class)
-                .where("status = ?", "done")
-                .orderBy("date")
+                .where("status = ?", true)
+                .orderBy("updated_at")
+                .execute();
+    }
+    public List<Task> getAllTasks(){
+        return new Select()
+                .from(Task.class)
+                .orderBy("updated_at")
                 .execute();
     }
 

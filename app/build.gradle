@@ -32,4 +32,10 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.android.support:design:22.2.0'
     compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+    compile 'com.squareup.okhttp:okhttp:2.7.5'
+    compile 'com.squareup.okhttp:okhttp-urlconnection:2.7.5'
+
 }

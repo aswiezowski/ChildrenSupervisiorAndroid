@@ -2,8 +2,10 @@ package kis.agh.edu.pl.childrensupervisiorandroid;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.PersistableBundle;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -25,30 +27,56 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout mDrawerLayout;
     private ArrayAdapter<String> navAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
+
     private String mActivityTitle;
+    private String childName;
+    private String parentName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        loadConfiguration();
+
         addDrawerItems();
         navList.setOnItemClickListener(new NavListAdapter(this, mDrawerLayout));
+
+        mActivityTitle = getTitle().toString();
+
+        setupToolbar();
+        setupDrawer();
+        if(savedInstanceState == null) {
+            loadDefaultState();
+        }
+    }
+
+    private void loadConfiguration(){
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        childName = sharedPref.getString(SettingsFragment.KEY_PREF_CHILD_NAME, "");
+        parentName = sharedPref.getString(SettingsFragment.KEY_PREF_PARENT_NAME, "");
+    }
+
+    private void setupToolbar(){
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
-        mActivityTitle = getTitle().toString();
-        setupDrawer();
-        if(savedInstanceState == null) {
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.add(R.id.fragment_container, TasksFragment.newInstance());
-            transaction.commit();
-        }
     }
+
+    private void loadDefaultState(){
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("status", false);
+        TasksFragment tasksFragment = TasksFragment.getInstance();
+        tasksFragment.setArguments(bundle);
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.add(R.id.fragment_container, tasksFragment);
+        transaction.commit();
+    }
+
 
     private void addDrawerItems() {
         String[] menuArray = { getResources().getString(R.string.tasks_todo),getResources().getString(R.string.tasks_done), getResources().getString(R.string.rewards), getResources().getString(R.string.calendar), getResources().getString(R.string.settings)};

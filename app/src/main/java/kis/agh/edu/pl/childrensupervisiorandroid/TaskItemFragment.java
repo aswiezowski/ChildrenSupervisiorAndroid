@@ -2,9 +2,11 @@ package kis.agh.edu.pl.childrensupervisiorandroid;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,7 +41,7 @@ public class TaskItemFragment extends Fragment {
         View view = inflater.inflate(R.layout.task_description_layout, container, false);
 
         retrieveTask();
-
+        prepareView(view);
         mainActivity=((MainActivity) getActivity());
         setHasOptionsMenu(true);
         return view;
@@ -57,11 +59,13 @@ public class TaskItemFragment extends Fragment {
         galleryLinearLayout = (LinearLayout) view.findViewById(R.id.galleryLinearLayout);
 
         taskDescription.setText(task.description);
-        rating.setRating(task.mark.floatValue());
+        if(task.mark!=null) {
+            rating.setRating(task.mark.floatValue());
+        }
 
         if(!task.isDone()){
-            checkButton.setBackgroundColor(getResources().getColor(R.color.colorUndone));
             checkButton.setImageResource(R.drawable.ic_clear);
+            checkButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorUndone)));
         }
 
     }
@@ -94,13 +98,20 @@ public class TaskItemFragment extends Fragment {
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CAMERA_REQUEST) {
+        if (requestCode == CAMERA_REQUEST && data.getExtras() != null) {
             ImageView imageView = new ImageView(getActivity());
             Bitmap photo = (Bitmap) data.getExtras().get("data");
 
             imageView.setImageBitmap(photo);
-            imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+
+            int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 256, getResources().getDisplayMetrics());
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
+            layoutParams.setMargins(5, 0, 5, 0);
+
+            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            imageView.setAdjustViewBounds(true);
+            imageView.setLayoutParams(layoutParams);
+
             galleryLinearLayout.addView(imageView);
 
         }

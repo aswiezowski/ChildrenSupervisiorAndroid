@@ -20,5 +20,10 @@
     <string name="pref_alarm_sequence_default">#0000#</string>
     <string name="done">Done</string>
     <string name="add_photo">Add photo</string>
+    <string name="pref_parent_name">Parent name</string>
+    <string name="pref_parent_name_summary">Name of children parent on the server</string>
+    <string name="pref_child_name">Child name</string>
+    <string name="pref_child_name_summary">Name of child on the server</string>
+    <string name="rest_failure">Can connect to server</string>
 
 </resources>

@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <EditTextPreference android:key="pref_sync"
+    <EditTextPreference android:key="pref_alarm_seq"
         android:title="@string/pref_alarm_sequence"
         android:summary="@string/pref_alarm_sequence_summary"
         android:defaultValue="@string/pref_alarm_sequence_default"
         android:inputType="phone"/>
+
+    <EditTextPreference android:key="pref_parent_name"
+        android:title="@string/pref_parent_name"
+        android:summary="@string/pref_parent_name_summary"
+        android:inputType="text" />
+
+    <EditTextPreference android:key="pref_child_name"
+        android:title="@string/pref_child_name"
+        android:summary="@string/pref_child_name_summary"
+        android:inputType="text" />
 </PreferenceScreen>

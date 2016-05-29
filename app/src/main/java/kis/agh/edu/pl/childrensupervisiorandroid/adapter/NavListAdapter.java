@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.AdapterView;
 import android.content.Context;
@@ -16,6 +17,7 @@ import kis.agh.edu.pl.childrensupervisiorandroid.MainActivity;
 import kis.agh.edu.pl.childrensupervisiorandroid.R;
 import kis.agh.edu.pl.childrensupervisiorandroid.RewardsFragment;
 import kis.agh.edu.pl.childrensupervisiorandroid.SettingsFragment;
+import kis.agh.edu.pl.childrensupervisiorandroid.TaskItemFragment;
 import kis.agh.edu.pl.childrensupervisiorandroid.TasksFragment;
 
 public class NavListAdapter implements AdapterView.OnItemClickListener {
@@ -36,7 +38,13 @@ public class NavListAdapter implements AdapterView.OnItemClickListener {
         FragmentManager fragmentManager = ((MainActivity) context).getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
+
+
         if (position == 0 || position == 1) {
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("status", position == 0 ? false : true);
+            TasksFragment tasksFragment = TasksFragment.getInstance();
+            tasksFragment.setTaskStatus(position==0?false:true);
             fragmentManager.popBackStack(0, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         } else if (position == 2) {
             transaction.replace(R.id.fragment_container, RewardsFragment.getInstance());
