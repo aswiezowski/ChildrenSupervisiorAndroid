@@ -90,7 +90,7 @@ public class DataSync {
     private Map<Integer, Task> generateMap(List<Task> tasks){
         Map taskMap = new HashMap();
         for(Task task: tasks){
-            taskMap.put(task.id, task);
+            taskMap.put(task.task_id, task);
         }
         return taskMap;
     }
@@ -98,7 +98,7 @@ public class DataSync {
     public void replaceLocalWithNewerTask(){
         Log.i("DataSync", Integer.toString(serverTasks.size()));
         for(Task serverTask: serverTasks){
-            Task localTask = localTasksToSyncMap.get(serverTask.id);
+            Task localTask = localTasksToSyncMap.get(serverTask.task_id);
             Log.i("DataSync", serverTask.summary);
             if(localTask==null){
                 serverTask.save();
@@ -110,7 +110,7 @@ public class DataSync {
                 Log.i("DataSync", "Save to server "+ serverTask.summary);
                 taskAccess.saveTask(localTask);
             }
-            localTasksToSyncMap.remove(serverTask.id);
+            localTasksToSyncMap.remove(serverTask.task_id);
         }
     }
 

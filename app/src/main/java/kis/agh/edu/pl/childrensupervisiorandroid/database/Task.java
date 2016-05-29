@@ -3,16 +3,17 @@ package kis.agh.edu.pl.childrensupervisiorandroid.database;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
-import com.google.gson.annotations.Expose;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
 import java.util.List;
 
-@Table(name = "Tasks", id = "_id")
+@Table(name = "tasks")
 public class Task extends Model {
 
-    @Column(name = "id")
-    public Integer id;
+    @JsonProperty("id")
+    @Column(name = "task_id")
+    public Integer task_id;
 
     @Column(name = "child_id")
     public Integer child_id;
@@ -54,13 +55,13 @@ public class Task extends Model {
         if (!super.equals(o)) return false;
 
         Task task = (Task) o;
-        return id.equals(task.id);
+        return task_id.equals(task.task_id);
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + id.hashCode();
+        result = 31 * result + task_id.hashCode();
         return result;
     }
 }
