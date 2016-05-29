@@ -104,7 +104,7 @@ public class TaskItemFragment extends Fragment {
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CAMERA_REQUEST && data.getExtras() != null) {
+        if (requestCode == CAMERA_REQUEST && data!= null && data.getExtras() != null) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
 
             addPhotoToView(photo);

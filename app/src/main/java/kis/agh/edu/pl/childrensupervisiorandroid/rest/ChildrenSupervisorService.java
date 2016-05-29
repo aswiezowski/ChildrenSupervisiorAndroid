@@ -14,6 +14,7 @@ public interface ChildrenSupervisorService {
     @GET("/parents/{parent_name}/children/{child_name}/tasks")
     Call<List<Task>> getTasks(@Path("parent_name") String parentName, @Path("child_name") String childName);
 
+    @Headers("Accept: application/json")
     @GET("/parents/{parent_name}/children/{child_name}/tasks/{task_id}")
     Call<Task> getTaskById(@Path("parent_name") String parentName, @Path("child_name") String childName, @Path("task_id") String taskId);
 

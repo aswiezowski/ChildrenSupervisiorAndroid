@@ -7,6 +7,7 @@ import kis.agh.edu.pl.childrensupervisiorandroid.database.Task;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class TaskAccess {
 
@@ -20,7 +21,7 @@ public class TaskAccess {
         this.parentName = parentName;
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://ancient-forest-46715.herokuapp.com/")
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(JacksonConverterFactory.create())
                 .build();
 
         service = retrofit.create(ChildrenSupervisorService.class);
@@ -28,7 +29,6 @@ public class TaskAccess {
 
     public Call<List<Task>> getTasksCall() {
         Call<List<Task>> tasksCall = service.getTasks(parentName, childName);
-        List<Task> tasks = null;
         return tasksCall;
     }
 

@@ -3,6 +3,7 @@ package kis.agh.edu.pl.childrensupervisiorandroid.database;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.google.gson.annotations.Expose;
 
 import java.util.Date;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 @Table(name = "Tasks", id = "_id")
 public class Task extends Model {
 
-    @Column(name = "task_id")
+    @Column(name = "id")
     public Integer id;
 
     @Column(name = "child_id")
